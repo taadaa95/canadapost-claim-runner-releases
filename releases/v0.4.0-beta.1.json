@@ -6,10 +6,10 @@
   "platform": "linux",
   "architecture": "x86_64",
   "source_repository": "taadaa95/canadapost-gui",
-  "source_commit": "3b79eef5e163fd8fb1d9880935e02f7a799b8d02",
+  "source_commit": "72b2a1cdb1b9f8dfeaa2c4cdae29b128d9a0b9b2",
   "source_branch": "feature/dev11-beta-release-hardening",
-  "workflow_run": 30720485876,
-  "appimage_sha256": "252e5d1282e1c34c59af22454624c7759a1981798e1c9e01cde066b61359dcf7",
+  "workflow_run": 30765413195,
+  "appimage_sha256": "3c86e95dc5e582e55d7861c022054376320142163d38130b24521afdcb07919c",
   "release_classification": {
     "draft": false,
     "published": true,
@@ -20,40 +20,52 @@
   "assets": [
     {
       "name": "Canada.Post.Claim.Runner-0.4.0-beta.1-linux-x86_64-beta.AppImage",
-      "size": 131331990,
-      "sha256": "252e5d1282e1c34c59af22454624c7759a1981798e1c9e01cde066b61359dcf7"
+      "size": 131332039,
+      "sha256": "3c86e95dc5e582e55d7861c022054376320142163d38130b24521afdcb07919c"
     },
     {
       "name": "SHA256SUMS-linux.txt",
       "size": 131,
-      "sha256": "879df9d5f45c12bfb11f49661aae856082921e65d160ed524143b33089312bb8"
+      "sha256": "d7102acbb71af0d27c1bb02ddbd067ce3c5bc4c54d80e331fdf7e604017da137"
     },
     {
       "name": "package-manifest-linux.unsigned.json",
       "size": 442,
-      "sha256": "b7f770da2fae81e7f1664ec833003d7b24a6542d704550449a09808d26a72a63"
+      "sha256": "d6fa64aa058cefdb3a1f395afc10dac0777e34a2190fe20b1819383bd3ffba6a"
     },
     {
       "name": "package-size-linux.json",
       "size": 1244,
-      "sha256": "cca80cb4cb2bd23a501178a777d58929a8efc05e6ba8cb9ac62d61ef56256da8"
+      "sha256": "905e138705579d46aaa7cd7ee0a2b1db23d84e635a685ab885c84f8276fe4ad0"
     },
     {
       "name": "release-provenance-linux.json",
       "size": 1263,
-      "sha256": "5c7b299f3533819ad5607c5b79b85361ab518e8adbc856467d8e4fa939f25a5c"
+      "sha256": "6d8c9550fafd1b62f7e2d817b58e657b93eb6931bb47b052ee168e84c4d2c370"
     },
     {
       "name": "sbom.cyclonedx.json",
       "size": 4703,
-      "sha256": "cdb3512404c377871174ac9e38bed0c98a043f68e9f505b7d97175b843301cbf"
+      "sha256": "bf3679735f359128eb3eabfdb85b1cf2e5517e328ec7907b59dfadb7c288422d"
     },
     {
       "name": "dependency-licenses.json",
       "size": 1052,
-      "sha256": "5ce22c63612d1f017e30b0ac8e2a1ec0620d3da1f39c1fbabe76bbae49dbd028"
+      "sha256": "b17c90b164879f26188c382b3a5977237d2c7b05cbee4d635ea55f822ca67155"
     }
   ],
+  "manual_validation": {
+    "environment": "Physical CachyOS/Hyprland system",
+    "status": "completed",
+    "validated": [
+      "English and Canadian French interface",
+      "Step 1 and Step 2 dynamic localization",
+      "English and Canadian French language switching",
+      "Field-label and workflow-card layout",
+      "Removal of the redundant manual Workflow Health Check UI",
+      "Retention of browser-session controls and Step 3 fail-closed portal-compatibility safeguards"
+    ]
+  },
   "limitations": [
     "This build is unsigned.",
     "Linux may require making the AppImage executable manually.",
