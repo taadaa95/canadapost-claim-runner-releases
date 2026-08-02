@@ -11,7 +11,8 @@
   "workflow_run": 30720485876,
   "appimage_sha256": "252e5d1282e1c34c59af22454624c7759a1981798e1c9e01cde066b61359dcf7",
   "release_classification": {
-    "draft": true,
+    "draft": false,
+    "published": true,
     "prerelease": true,
     "latest": false,
     "linux_only": true
