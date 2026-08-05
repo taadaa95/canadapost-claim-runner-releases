@@ -6,10 +6,10 @@
   "platform": "linux",
   "architecture": "x86_64",
   "source_repository": "taadaa95/canadapost-gui",
-  "source_commit": "72b2a1cdb1b9f8dfeaa2c4cdae29b128d9a0b9b2",
+  "source_commit": "7436592ba12b9ebdf1c0e437ced39439d1fe0ed0",
   "source_branch": "feature/dev11-beta-release-hardening",
-  "workflow_run": 30765413195,
-  "appimage_sha256": "3c86e95dc5e582e55d7861c022054376320142163d38130b24521afdcb07919c",
+  "workflow_run": null,
+  "appimage_sha256": "cfcaf014e22b7160495554444f0ce6e1e12d684727478400f6134ba68d850700",
   "release_classification": {
     "draft": false,
     "published": true,
@@ -20,50 +20,47 @@
   "assets": [
     {
       "name": "Canada.Post.Claim.Runner-0.4.0-beta.1-linux-x86_64-beta.AppImage",
-      "size": 131332039,
-      "sha256": "3c86e95dc5e582e55d7861c022054376320142163d38130b24521afdcb07919c"
+      "size": 131135651,
+      "sha256": "cfcaf014e22b7160495554444f0ce6e1e12d684727478400f6134ba68d850700"
     },
     {
       "name": "SHA256SUMS-linux.txt",
       "size": 131,
-      "sha256": "d7102acbb71af0d27c1bb02ddbd067ce3c5bc4c54d80e331fdf7e604017da137"
+      "sha256": "4881b2f59d68062beaefd51345d06031ae080e8094b43e88cda0ce86f20c3f82"
     },
     {
       "name": "package-manifest-linux.unsigned.json",
       "size": 442,
-      "sha256": "d6fa64aa058cefdb3a1f395afc10dac0777e34a2190fe20b1819383bd3ffba6a"
+      "sha256": "575962ee092e7c1231bf680a97d115b8cde091093f3efee096b68cbd00c9ab6f"
     },
     {
       "name": "package-size-linux.json",
       "size": 1244,
-      "sha256": "905e138705579d46aaa7cd7ee0a2b1db23d84e635a685ab885c84f8276fe4ad0"
+      "sha256": "00f5f97546dbf7436e247389d5926437337a98230897b4f729a8924ec1fac0fb"
     },
     {
       "name": "release-provenance-linux.json",
       "size": 1263,
-      "sha256": "6d8c9550fafd1b62f7e2d817b58e657b93eb6931bb47b052ee168e84c4d2c370"
+      "sha256": "7440c14fdfa2ee75548836dedf591f1c2fc27e282672c03215bfc4913c8f8896"
     },
     {
       "name": "sbom.cyclonedx.json",
       "size": 4703,
-      "sha256": "bf3679735f359128eb3eabfdb85b1cf2e5517e328ec7907b59dfadb7c288422d"
+      "sha256": "044ea53c1efbc493e608726b426f83601b7d27f90f543a272ff09ece02360d16"
     },
     {
       "name": "dependency-licenses.json",
       "size": 1052,
-      "sha256": "b17c90b164879f26188c382b3a5977237d2c7b05cbee4d635ea55f822ca67155"
+      "sha256": "137764e40a986ab68fcb4f72bd85815b0ea3f5cffefe2553ffe6f61f51084d09"
     }
   ],
   "manual_validation": {
-    "environment": "Physical CachyOS/Hyprland system",
-    "status": "completed",
-    "validated": [
-      "English and Canadian French interface",
-      "Step 1 and Step 2 dynamic localization",
-      "English and Canadian French language switching",
-      "Field-label and workflow-card layout",
-      "Removal of the redundant manual Workflow Health Check UI",
-      "Retention of browser-session controls and Step 3 fail-closed portal-compatibility safeguards"
+    "passed": true,
+    "platform": "CachyOS/Hyprland",
+    "source_commit": "7436592ba12b9ebdf1c0e437ced39439d1fe0ed0",
+    "notes": [
+      "All workflow pages remain accessible",
+      "Step 3 compatibility warnings are advisory and non-blocking"
     ]
   },
   "limitations": [
@@ -75,5 +72,7 @@
     "A real Canada Post live canary and customer pilot remain pending.",
     "Windows physical installer, upgrade, rollback, uninstall, and SmartScreen validation remain pending.",
     "Legal, privacy, EULA, trademark, and current Canada Post policy approval remain pending."
-  ]
+  ],
+  "build_origin": "local-clean-worktree-manual-validation",
+  "ci_packaging_status": "pending-github-actions-artifact-quota-recalculation"
 }
