@@ -6,10 +6,10 @@
   "platform": "linux",
   "architecture": "x86_64",
   "source_repository": "taadaa95/canadapost-gui",
-  "source_commit": "7436592ba12b9ebdf1c0e437ced39439d1fe0ed0",
+  "source_commit": "5d9c7defb07aab17facafb04606feaf0552e87ad",
   "source_branch": "feature/dev11-beta-release-hardening",
   "workflow_run": null,
-  "appimage_sha256": "cfcaf014e22b7160495554444f0ce6e1e12d684727478400f6134ba68d850700",
+  "appimage_sha256": "1df9b5d6ebf81a10c50506ab11b4a0033b4a0332d42371c0473684e2bfb26d97",
   "release_classification": {
     "draft": false,
     "published": true,
@@ -20,47 +20,50 @@
   "assets": [
     {
       "name": "Canada.Post.Claim.Runner-0.4.0-beta.1-linux-x86_64-beta.AppImage",
-      "size": 131135651,
-      "sha256": "cfcaf014e22b7160495554444f0ce6e1e12d684727478400f6134ba68d850700"
+      "size": 131135614,
+      "sha256": "1df9b5d6ebf81a10c50506ab11b4a0033b4a0332d42371c0473684e2bfb26d97"
     },
     {
       "name": "SHA256SUMS-linux.txt",
       "size": 131,
-      "sha256": "4881b2f59d68062beaefd51345d06031ae080e8094b43e88cda0ce86f20c3f82"
+      "sha256": "738b33c5dd9faa45d8bd7c3ad37c0457cd1f009014058a9627ed5d951f15613a"
     },
     {
       "name": "package-manifest-linux.unsigned.json",
       "size": 442,
-      "sha256": "575962ee092e7c1231bf680a97d115b8cde091093f3efee096b68cbd00c9ab6f"
+      "sha256": "e60a24cdcec8bd6515f9f6cd211cac3ff4f59f9044838bff9108c84635fd96ad"
     },
     {
       "name": "package-size-linux.json",
       "size": 1244,
-      "sha256": "00f5f97546dbf7436e247389d5926437337a98230897b4f729a8924ec1fac0fb"
+      "sha256": "474f2f9ceb667cf5c8973dd02a1cc3dbfd85dbe6add28cd0a9829e58776a0c91"
     },
     {
       "name": "release-provenance-linux.json",
       "size": 1263,
-      "sha256": "7440c14fdfa2ee75548836dedf591f1c2fc27e282672c03215bfc4913c8f8896"
+      "sha256": "227c8c1cfe78f03d35f503ba3df6464e87532251b092d94c749e42c0580a64f5"
     },
     {
       "name": "sbom.cyclonedx.json",
       "size": 4703,
-      "sha256": "044ea53c1efbc493e608726b426f83601b7d27f90f543a272ff09ece02360d16"
+      "sha256": "58b46b7fcd3a3c5c2f2a18c48fcb3e9da6843aa4dd800a2cd4282a3d049c4ab2"
     },
     {
       "name": "dependency-licenses.json",
       "size": 1052,
-      "sha256": "137764e40a986ab68fcb4f72bd85815b0ea3f5cffefe2553ffe6f61f51084d09"
+      "sha256": "5d9053c699b8133802e9fa643cc8c17077b3cda4683d4940ab970a551d7b20bd"
     }
   ],
   "manual_validation": {
     "passed": true,
     "platform": "CachyOS/Hyprland",
-    "source_commit": "7436592ba12b9ebdf1c0e437ced39439d1fe0ed0",
+    "source_commit": "5d9c7defb07aab17facafb04606feaf0552e87ad",
     "notes": [
       "All workflow pages remain accessible",
-      "Step 3 compatibility warnings are advisory and non-blocking"
+      "Step 3 compatibility warnings are advisory and non-blocking",
+      "Updater no longer reports dev.10 as current when beta.1 exists",
+      "Unsigned beta status is accurately explained",
+      "Open Releases Page action is available"
     ]
   },
   "limitations": [
@@ -74,5 +77,6 @@
     "Legal, privacy, EULA, trademark, and current Canada Post policy approval remain pending."
   ],
   "build_origin": "local-clean-worktree-manual-validation",
-  "ci_packaging_status": "pending-github-actions-artifact-quota-recalculation"
+  "ci_packaging_status": "tests-passed-artifact-upload-blocked-by-actions-quota",
+  "validation_workflow_run": 31048047961
 }
