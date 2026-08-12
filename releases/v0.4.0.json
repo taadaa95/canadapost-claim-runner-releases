@@ -13,10 +13,10 @@
     }
   },
   "manualValidation": {
-    "status": "pending",
-    "validatedAt": null,
-    "notes": ""
+    "status": "passed",
+    "validatedAt": "2026-08-12T19:41:00Z",
+    "notes": "Manually validated on CachyOS/Hyprland: VERSION 0.4.0; simplified actionable Step 3 queue; simplified Claim History; Settings Advanced maintenance controls; existing profile data preserved; dry run and built-in browser behavior verified."
   },
-  "buildOrigin": "local-clean-source",
+  "buildOrigin": "local-clean-source-manual-validation",
   "releaseUrl": "https://github.com/taadaa95/canadapost-claim-runner-releases/releases/tag/v0.4.0"
 }
