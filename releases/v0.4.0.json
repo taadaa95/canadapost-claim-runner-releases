@@ -10,6 +10,26 @@
       "file": "Canada.Post.Claim.Runner-0.4.0-linux-x86_64.AppImage",
       "bytes": 131115162,
       "sha256": "197b59b8c3ef1e7ce647b75136dd2d374aa261831da4932a0723b9a3983e7527"
+    },
+    "windows": {
+      "file": "Canada.Post.Claim.Runner-0.4.0-win-x64.exe",
+      "bytes": 95154252,
+      "sha256": "515ed9c84b5468296db9cc3d3de3abcb8f2cb37f7fc76b14437bb562aa97c726"
+    }
+  },
+  "automatedValidation": {
+    "windows": {
+      "status": "passed",
+      "validatedAt": "2026-08-12T20:55:39Z",
+      "sourceSha": "908e1c86a1b1710fc03b7ed21ee7ad5291d6f199",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/31639480883",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed",
+      "secretScan": "passed",
+      "productionDependencyAudit": "passed",
+      "manualValidation": "not_performed"
     }
   },
   "manualValidation": {
