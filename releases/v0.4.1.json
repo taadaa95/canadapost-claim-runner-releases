@@ -1,0 +1,45 @@
+{
+  "format": "canadapost-claim-runner-release-metadata",
+  "metadataVersion": 1,
+  "version": "0.4.1",
+  "tag": "v0.4.1",
+  "sourceRepository": "taadaa95/canadapost-gui",
+  "sourceSha": "6de5141b8f7e01555393aed26e198d77edfe0025",
+  "artifacts": {
+    "linux": {
+      "file": "Canada.Post.Claim.Runner-0.4.1-linux-x86_64.AppImage",
+      "bytes": 131111090,
+      "sha256": "bbd644dd3b0dd12f73a3275b8d3ff9d285fd6e8d316abd9a31ddba2bb91d827e"
+    },
+    "windows": {
+      "file": "Canada.Post.Claim.Runner-0.4.1-win-x64.exe",
+      "bytes": 95153103,
+      "sha256": "e42adb8c0036f8d3ae02cfba3cadfde8fc04423d6bcfcae6e420a07d760283c4"
+    }
+  },
+  "automatedValidation": {
+    "windows": {
+      "status": "passed",
+      "validatedAt": "2026-08-12T23:54:23Z",
+      "sourceSha": "6de5141b8f7e01555393aed26e198d77edfe0025",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/31652152027",
+      "nativePackageBuild": "passed",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseFinalization": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed",
+      "secretScan": "passed",
+      "productionDependencyAudit": "passed",
+      "manualValidation": "not_performed"
+    }
+  },
+  "manualValidation": {
+    "status": "passed",
+    "platform": "linux-x64",
+    "validatedAt": "2026-08-12T23:55:54Z",
+    "notes": "Kris manually validated the exact Linux AppImage on physical CachyOS/Hyprland, including Step 1 compact date controls and Import Shipment History title; light-mode Step 2 log contrast; Step 2 ON_TIME reuse/cache; the simplified Step 3 built-in-browser workflow; and the July 1 through August 12 long Shipment History import with automatic date segmentation, complete tracking.csv output, and no duplicate tracking PINs."
+  },
+  "buildOrigin": "manual-validated-linux-and-github-actions-windows:31652152027",
+  "releaseUrl": "https://github.com/taadaa95/canadapost-claim-runner-releases/releases/tag/v0.4.1"
+}
