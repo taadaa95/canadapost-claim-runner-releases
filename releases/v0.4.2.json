@@ -30,7 +30,7 @@
       "releaseMetadataValidation": "passed",
       "provenanceGeneration": "passed",
       "transferRestore": "passed",
-      "manualValidation": "not_performed"
+      "manualValidation": "passed"
     },
     "windows": {
       "status": "passed",
@@ -48,9 +48,10 @@
     }
   },
   "manualValidation": {
-    "status": "pending",
-    "validatedAt": null,
-    "notes": ""
+    "status": "passed",
+    "platform": "linux-x64",
+    "validatedAt": "2026-08-14T04:38:00Z",
+    "notes": "Kris manually validated the exact CI-produced 0.4.2 Linux AppImage on physical CachyOS/Hyprland. The packaged application launched successfully and the approved v0.4.2 UI, Guided Canada Post Setup, Settings cleanup, and main workflow presentation were verified."
   },
   "buildOrigin": "github-actions:31769630452",
   "releaseUrl": "https://github.com/taadaa95/canadapost-claim-runner-releases/releases/tag/v0.4.2"
