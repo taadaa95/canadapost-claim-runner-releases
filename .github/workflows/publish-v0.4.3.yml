@@ -199,7 +199,7 @@ jobs:
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(json.dumps(metadata, indent=2) + '\n', encoding='utf-8')
           PY
-          sha256sum -c publish-assets/SHA256SUMS.txt
+          (cd publish-assets && sha256sum -c SHA256SUMS.txt)
       - name: Refuse to overwrite an existing release
         run: |
           if gh release view "v${VERSION}" >/dev/null 2>&1; then
