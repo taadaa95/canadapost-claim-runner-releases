@@ -1,0 +1,54 @@
+{
+  "format": "canadapost-claim-runner-release-metadata",
+  "metadataVersion": 1,
+  "version": "0.4.5",
+  "tag": "v0.4.5",
+  "sourceRepository": "taadaa95/canadapost-gui",
+  "sourceSha": "1ed752feb4fea66a4ecf03490688b368e5d9e163",
+  "artifacts": {
+    "linux": {
+      "file": "Canada.Post.Claim.Runner-0.4.5-linux-x86_64.AppImage",
+      "bytes": 131586158,
+      "sha256": "f449db868f217d2719bf594045712208606f67304ffa1ee450d86ba5b93f5533"
+    },
+    "windows": {
+      "file": "Canada.Post.Claim.Runner-0.4.5-win-x64.exe",
+      "bytes": 95295534,
+      "sha256": "579d28ba73f3dd9cfab4e5062a35398564231f73a7c66db4bcfad22ad6f41c87"
+    }
+  },
+  "automatedValidation": {
+    "linux": {
+      "status": "passed",
+      "sourceSha": "1ed752feb4fea66a4ecf03490688b368e5d9e163",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32539269591",
+      "publicationPackageRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32545980251",
+      "nativePackageBuild": "passed",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseFinalization": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed"
+    },
+    "windows": {
+      "status": "passed",
+      "sourceSha": "1ed752feb4fea66a4ecf03490688b368e5d9e163",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32539269591",
+      "publicationPackageRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32545980251",
+      "nativePackageBuild": "passed",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseFinalization": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed"
+    }
+  },
+  "manualValidation": {
+    "status": "partial",
+    "platform": "linux-x64",
+    "validatedAt": "2026-08-22T02:09:00Z",
+    "notes": "Kris manually validated the History behavior on Linux before publication. Exact public-binary physical validation remains pending, especially on Windows."
+  },
+  "buildOrigin": "github-actions:32545980251",
+  "releaseUrl": "https://github.com/taadaa95/canadapost-claim-runner-releases/releases/tag/v0.4.5"
+}
