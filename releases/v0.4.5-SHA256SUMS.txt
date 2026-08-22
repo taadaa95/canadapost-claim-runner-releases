@@ -1,0 +1,2 @@
+f449db868f217d2719bf594045712208606f67304ffa1ee450d86ba5b93f5533  Canada.Post.Claim.Runner-0.4.5-linux-x86_64.AppImage
+579d28ba73f3dd9cfab4e5062a35398564231f73a7c66db4bcfad22ad6f41c87  Canada.Post.Claim.Runner-0.4.5-win-x64.exe
