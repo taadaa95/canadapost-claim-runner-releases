@@ -1,0 +1,56 @@
+{
+  "format": "canadapost-claim-runner-release-metadata",
+  "metadataVersion": 1,
+  "version": "0.4.6",
+  "tag": "v0.4.6",
+  "sourceRepository": "taadaa95/canadapost-gui",
+  "sourceSha": "6b33982fec0266a47ba6a0332d6d9a7f00dc36e5",
+  "artifacts": {
+    "linux": {
+      "file": "Canada.Post.Claim.Runner-0.4.6-linux-x86_64.AppImage",
+      "bytes": 131586178,
+      "sha256": "64059569ba0f561626f2981bb87157d598cc619b1c0dde052a413a53f147c25f"
+    },
+    "windows": {
+      "file": "Canada.Post.Claim.Runner-0.4.6-win-x64.exe",
+      "bytes": 95295152,
+      "sha256": "de5e1635237c1cc2c130bfe5795cf984d25f1088e0aba109021b653ea51d9783"
+    }
+  },
+  "automatedValidation": {
+    "linux": {
+      "status": "passed",
+      "validatedAt": "2026-08-22T04:59:37Z",
+      "sourceSha": "6b33982fec0266a47ba6a0332d6d9a7f00dc36e5",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32552585578",
+      "publicationPackageRun": "https://github.com/taadaa95/canadapost-claim-runner-releases/actions/runs/32553012097",
+      "nativePackageBuild": "passed",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseFinalization": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed"
+    },
+    "windows": {
+      "status": "passed",
+      "validatedAt": "2026-08-22T04:59:37Z",
+      "sourceSha": "6b33982fec0266a47ba6a0332d6d9a7f00dc36e5",
+      "workflowRun": "https://github.com/taadaa95/canadapost-gui/actions/runs/32552585578",
+      "publicationPackageRun": "https://github.com/taadaa95/canadapost-claim-runner-releases/actions/runs/32553012097",
+      "nativePackageBuild": "passed",
+      "packageContentAudit": "passed",
+      "packageSizeAudit": "passed",
+      "releaseFinalization": "passed",
+      "releaseMetadataValidation": "passed",
+      "provenanceGeneration": "passed"
+    }
+  },
+  "manualValidation": {
+    "status": "not_performed",
+    "platform": "windows-x64",
+    "validatedAt": null,
+    "notes": "The exact v0.4.6 public installers have not been manually validated after packaging. Automated Windows and Linux validation passed."
+  },
+  "buildOrigin": "github-actions:32553012097",
+  "releaseUrl": "https://github.com/taadaa95/canadapost-claim-runner-releases/releases/tag/v0.4.6"
+}
