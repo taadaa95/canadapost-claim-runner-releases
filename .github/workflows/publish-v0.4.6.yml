@@ -1,0 +1,245 @@
+name: Publish Canada Post Claim Runner 0.4.6
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-v0.4.6
+  cancel-in-progress: false
+
+env:
+  SOURCE_REPOSITORY: taadaa95/canadapost-gui
+  SOURCE_SHA: 6b33982fec0266a47ba6a0332d6d9a7f00dc36e5
+  SOURCE_VALIDATION_RUN: '32552585578'
+  VERSION: 0.4.6
+
+jobs:
+  build:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'release/publish-0.4.6'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            package_script: package:linux
+            audit_path: dist/packages/linux-unpacked
+            file: Canada.Post.Claim.Runner-0.4.6-linux-x86_64.AppImage
+          - os: windows-latest
+            platform: windows
+            package_script: package:windows
+            audit_path: dist/packages/win-unpacked
+            file: Canada.Post.Claim.Runner-0.4.6-win-x64.exe
+    name: Build ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - name: Check out exact application source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPOSITORY }}
+          ref: ${{ env.SOURCE_SHA }}
+          path: source
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+      - name: Install dependencies
+        working-directory: source
+        run: npm ci
+      - name: Install Electron runtime
+        working-directory: source
+        run: npx install-electron --no
+      - name: Verify exact application version
+        working-directory: source
+        shell: bash
+        run: test "$(node -p "require('./package.json').version")" = "$VERSION"
+      - name: Build native package
+        working-directory: source
+        run: npm run ${{ matrix.package_script }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Audit packaged content
+        working-directory: source
+        run: npm run package:audit -- "${{ matrix.audit_path }}"
+      - name: Audit package size
+        working-directory: source
+        run: npm run package:size -- dist/packages
+      - name: Generate and validate release metadata
+        working-directory: source
+        shell: bash
+        env:
+          RELEASE_PLATFORM: ${{ matrix.platform }}
+          RELEASE_SOURCE_BRANCH: feature/dev11-beta-release-hardening
+          RELEASE_SOURCE_COMMIT: ${{ env.SOURCE_SHA }}
+        run: |
+          npm run sbom
+          npm run release:finalize
+          npm run release:validate
+          npm run release:provenance
+          npm run secret-scan
+      - name: Verify expected installer exists
+        working-directory: source
+        shell: bash
+        run: test -f "dist/packages/${{ matrix.file }}"
+      - name: Upload exact installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.platform }}
+          path: source/dist/packages/${{ matrix.file }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 2
+
+  publish:
+    name: Publish v0.4.6
+    needs: build
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'release/publish-0.4.6'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Confirm canonical source validation passed
+        shell: bash
+        run: |
+          set -euo pipefail
+          api="https://api.github.com/repos/${SOURCE_REPOSITORY}/actions/runs/${SOURCE_VALIDATION_RUN}"
+          conclusion="$(curl -fsSL -H 'Accept: application/vnd.github+json' "$api" | python -c 'import json,sys; print(json.load(sys.stdin).get("conclusion") or "")')"
+          if [[ "$conclusion" != "success" ]]; then
+            echo "Canonical source validation run ${SOURCE_VALIDATION_RUN} is not successful: ${conclusion:-incomplete}" >&2
+            exit 1
+          fi
+      - name: Check out public releases repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Download exact installers
+        uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: publish-assets
+          merge-multiple: true
+      - name: Build checksums and public metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, os
+          from datetime import datetime, timezone
+
+          root = Path('publish-assets')
+          version = os.environ['VERSION']
+          source_sha = os.environ['SOURCE_SHA']
+          source_run = os.environ['SOURCE_VALIDATION_RUN']
+          files = {
+              'linux': root / f'Canada.Post.Claim.Runner-{version}-linux-x86_64.AppImage',
+              'windows': root / f'Canada.Post.Claim.Runner-{version}-win-x64.exe',
+          }
+          artifacts = {}
+          checksum_lines = []
+          for platform, path in files.items():
+              if not path.is_file():
+                  raise SystemExit(f'missing release artifact: {path}')
+              data = path.read_bytes()
+              digest = hashlib.sha256(data).hexdigest()
+              artifacts[platform] = {'file': path.name, 'bytes': len(data), 'sha256': digest}
+              checksum_lines.append(f'{digest}  {path.name}')
+          checksums = '\n'.join(checksum_lines) + '\n'
+          (root / 'SHA256SUMS.txt').write_text(checksums, encoding='utf-8')
+
+          now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+          publication_run = os.environ['GITHUB_RUN_ID']
+          publication_url = f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/actions/runs/{publication_run}'
+          metadata = {
+              'format': 'canadapost-claim-runner-release-metadata',
+              'metadataVersion': 1,
+              'version': version,
+              'tag': f'v{version}',
+              'sourceRepository': os.environ['SOURCE_REPOSITORY'],
+              'sourceSha': source_sha,
+              'artifacts': artifacts,
+              'automatedValidation': {
+                  'linux': {
+                      'status': 'passed', 'validatedAt': now, 'sourceSha': source_sha,
+                      'workflowRun': f'https://github.com/{os.environ["SOURCE_REPOSITORY"]}/actions/runs/{source_run}',
+                      'publicationPackageRun': publication_url,
+                      'nativePackageBuild': 'passed', 'packageContentAudit': 'passed',
+                      'packageSizeAudit': 'passed', 'releaseFinalization': 'passed',
+                      'releaseMetadataValidation': 'passed', 'provenanceGeneration': 'passed'
+                  },
+                  'windows': {
+                      'status': 'passed', 'validatedAt': now, 'sourceSha': source_sha,
+                      'workflowRun': f'https://github.com/{os.environ["SOURCE_REPOSITORY"]}/actions/runs/{source_run}',
+                      'publicationPackageRun': publication_url,
+                      'nativePackageBuild': 'passed', 'packageContentAudit': 'passed',
+                      'packageSizeAudit': 'passed', 'releaseFinalization': 'passed',
+                      'releaseMetadataValidation': 'passed', 'provenanceGeneration': 'passed'
+                  }
+              },
+              'manualValidation': {
+                  'status': 'not_performed',
+                  'platform': 'windows-x64',
+                  'validatedAt': None,
+                  'notes': 'The exact v0.4.6 public installers have not been manually validated after packaging. Automated Windows and Linux validation passed.'
+              },
+              'buildOrigin': f'github-actions:{publication_run}',
+              'releaseUrl': f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/releases/tag/v{version}'
+          }
+          releases = Path('releases')
+          releases.mkdir(parents=True, exist_ok=True)
+          (releases / f'v{version}.json').write_text(json.dumps(metadata, indent=2) + '\n', encoding='utf-8')
+          (releases / f'v{version}-SHA256SUMS.txt').write_text(checksums, encoding='utf-8')
+          PY
+          (cd publish-assets && sha256sum -c SHA256SUMS.txt)
+      - name: Refuse to overwrite an existing release
+        run: |
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            echo "Release v${VERSION} already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+      - name: Commit public release metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add "releases/v${VERSION}.json" "releases/v${VERSION}-SHA256SUMS.txt"
+          git commit -m "release: publish Canada Post Claim Runner ${VERSION} metadata"
+          git push origin HEAD:main
+      - name: Publish GitHub release
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/release-notes.md <<'EOF'
+          ## Canada Post Claim Runner 0.4.6
+
+          Hotfix release:
+
+          - Fixes Claim History failing to load with `history:list does not accept field latestOnly`.
+          - Restores the current/latest History records, counts, status filtering, color coding, and Step 2 retry actions.
+          - Corrects EST website-credential HTTP 401 guidance so it no longer incorrectly reports a Tracking Bearer-token failure.
+
+          Database schema remains version 8.
+          EOF
+          gh release create "v${VERSION}" \
+            "publish-assets/Canada.Post.Claim.Runner-${VERSION}-linux-x86_64.AppImage" \
+            "publish-assets/Canada.Post.Claim.Runner-${VERSION}-win-x64.exe" \
+            "publish-assets/SHA256SUMS.txt" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target main \
+            --title "Canada Post Claim Runner ${VERSION}" \
+            --notes-file /tmp/release-notes.md \
+            --latest
